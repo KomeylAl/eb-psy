@@ -24,6 +24,7 @@ import { PuffLoader } from "react-spinners";
 import Image from "next/image";
 import { Moon, Sun, User } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { dateConvert } from "@/lib/utils";
 
 const Settings = () => {
   const router = useRouter();
@@ -123,8 +124,7 @@ const Settings = () => {
               <CardHeader>
                 <CardTitle>اطلاعات حساب</CardTitle>
                 <CardDescription>
-                  این اطلاعات فقط‌خواندنی هستند. برای ویرایش محتوای عمومی به
-                  صفحه رزومه بروید.
+                  این اطلاعات تنها توسط مدیر قابل تغییر هستند. لطفا در صورت مغایرت در هر یک از موارد به مدیر سایت اطلاع دهید.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -146,7 +146,7 @@ const Settings = () => {
                       {profile?.name || "بدون نام"}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      روان‌درمانگر
+                      متخصص
                     </p>
                   </div>
                 </div>
@@ -164,7 +164,7 @@ const Settings = () => {
                   />
                   <InfoItem
                     label="تاریخ تولد"
-                    value={profile?.birth_date || "—"}
+                    value={dateConvert(profile?.birth_date) || "—"}
                   />
                   <InfoItem
                     label="آدرس"
