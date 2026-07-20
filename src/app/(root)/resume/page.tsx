@@ -51,7 +51,6 @@ const DoctorResume = () => {
       certifications: resume?.certifications ?? [""],
       social_links: socialLinks,
     });
-    setContent(resume?.content ?? "");
   }, [resume, reset]);
 
   const {
@@ -81,6 +80,8 @@ const DoctorResume = () => {
 
     saveResume({ formData: data });
   };
+
+  console.log(content)
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -176,9 +177,8 @@ const DoctorResume = () => {
                 <h3 className="font-semibold mt-4">رزومه</h3>
                 <div>
                   <RichTextEditor
-                    content={content}
+                    content={resume?.content ?? ""}
                     onChange={(val) => {
-                      setContent(val);
                       setValue("content", val);
                     }}
                   />
