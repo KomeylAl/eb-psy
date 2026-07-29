@@ -1,7 +1,26 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 function ensureTrailingSlash(url: string) {
   return url.endsWith("/") ? url : `${url}/`;
+}
+
+/** Auth cookie lifetime — align with backend Sanctum token (≥ 1 week). */
+export const AUTH_TOKEN_MAX_AGE = 60 * 60 * 24 * 7;
+
+export const AUTH_TOKEN_COOKIE = "token";
+
+export function authTokenCookieOptions() {
+  return {
+    httpOnly: true,
+    path: "/",
+    maxAge: AUTH_TOKEN_MAX_AGE,
+    sameSite: "lax" as const,
+    secure: process.env.NODE_ENV === "production",
+  };
+}
+
+export function setAuthTokenCookie(res: NextResponse, token: string) {
+  res.cookies.set(AUTH_TOKEN_COOKIE, token, authTokenCookieOptions());
 }
 
 export function getBackendBaseUrl() {
@@ -21,7 +40,7 @@ export function backendUrl(path: string) {
 }
 
 export function getAuthToken(req: NextRequest) {
-  return req.cookies.get("token")?.value;
+  return req.cookies.get(AUTH_TOKEN_COOKIE)?.value;
 }
 
 export function authHeaders(token?: string, extra: HeadersInit = {}) {

@@ -1,4 +1,9 @@
-import { authHeaders, backendUrl, getAuthToken } from "@/lib/backend";
+import {
+  AUTH_TOKEN_COOKIE,
+  authHeaders,
+  backendUrl,
+  getAuthToken,
+} from "@/lib/backend";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -25,7 +30,7 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
 
-    res.cookies.delete("token");
+    res.cookies.delete(AUTH_TOKEN_COOKIE);
     return res;
   } catch (error: unknown) {
     return NextResponse.json(

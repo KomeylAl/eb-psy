@@ -1,4 +1,4 @@
-import { authHeaders, backendUrl } from "@/lib/backend";
+import { authHeaders, backendUrl, setAuthTokenCookie } from "@/lib/backend";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -46,12 +46,7 @@ export async function POST(req: NextRequest) {
       token_type: payload?.data?.token_type ?? "Bearer",
     });
 
-    res.cookies.set("token", token, {
-      httpOnly: true,
-      path: "/",
-      maxAge: 60 * 60 * 2,
-      sameSite: "lax",
-    });
+    setAuthTokenCookie(res, token);
 
     return res;
   } catch (error: unknown) {
