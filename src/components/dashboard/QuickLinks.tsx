@@ -4,6 +4,7 @@ import {
   CalendarCheck,
   CalendarFold,
   FileUser,
+  FolderHeart,
   MessageSquareText,
   Settings,
   SwatchBook,
@@ -27,6 +28,12 @@ const links = [
     href: "/comments",
     description: "مشاهده نظرات تأییدشده مراجعین",
     icon: MessageSquareText,
+  },
+  {
+    title: "برنامه‌های درمان",
+    href: "/treatment-programs",
+    description: "پرونده و جلسات برنامه‌های درمانی",
+    icon: FolderHeart,
   },
   {
     title: "رزومه",

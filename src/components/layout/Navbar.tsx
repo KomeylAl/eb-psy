@@ -5,6 +5,7 @@ import {
   CalendarCheck,
   CalendarFold,
   FileUser,
+  FolderHeart,
   LayoutDashboard,
   MessageSquareText,
   Settings,
@@ -35,6 +36,11 @@ const Navbar = () => {
       title: "نوبت ها",
       link: "/appointments",
       icon: <CalendarCheck />,
+    },
+    {
+      title: "برنامه‌های درمان",
+      link: "/treatment-programs",
+      icon: <FolderHeart />,
     },
     {
       title: "ارزیابی ها",

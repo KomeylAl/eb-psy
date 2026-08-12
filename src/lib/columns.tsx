@@ -11,17 +11,25 @@ import { ChartBar, Check } from "lucide-react";
 export const appointmentColumns = [
   {
     header: "مراجع",
-    accessor: (row: any) => (
-      <div className="relative inline-block">{row.client?.name}</div>
-    ),
-    cellClassName: (row: any) => "text-violet-500",
+    accessor: (row: any) =>
+      row.treatment_program_id ? (
+        <Link
+          href={`/treatment-programs/${row.treatment_program_id}`}
+          className="text-violet-600 hover:underline"
+        >
+          {row.client?.name}
+        </Link>
+      ) : (
+        <span>{row.client?.name ?? "—"}</span>
+      ),
+    cellClassName: () => "text-violet-500",
   },
   {
     header: "مشاور",
     accessor: (row: any) => (
       <div className="relative inline-block">{row.doctor?.name}</div>
     ),
-    cellClassName: (row: any) => "text-cyan-500",
+    cellClassName: () => "text-cyan-500",
   },
   {
     header: "تاریخ و ساعت",
@@ -49,6 +57,33 @@ export const appointmentColumns = [
     },
     cellClassName: (row: any) =>
       row.payment?.status === "paid" ? "text-indigo-500" : "text-rose-500",
+  },
+  {
+    header: "پرونده",
+    accessor: (row: any) =>
+      row.treatment_program_id ? (
+        <Link
+          href={`/treatment-programs/${row.treatment_program_id}`}
+          className="text-blue-600 hover:underline text-sm"
+        >
+          برنامه
+        </Link>
+      ) : row.client?.id ? (
+        <span className="text-muted-foreground text-sm">—</span>
+      ) : (
+        "—"
+      ),
+  },
+  {
+    header: "جلسه",
+    accessor: (row: any) => (
+      <Link
+        href={`/appointments/${row.id}`}
+        className="text-blue-600 hover:underline text-sm"
+      >
+        جزئیات
+      </Link>
+    ),
   },
 ];
 
@@ -197,16 +232,16 @@ export const assessmentsColumns = [
   {
     header: "مراجع",
     accessor: (row: any) => (
-      <div className="relative inline-block">{row.client?.name}</div>
+      <div className="relative inline-block">{row.client?.name ?? "—"}</div>
     ),
-    cellClassName: (row: any) => "text-violet-500",
+    cellClassName: () => "text-violet-500",
   },
   {
     header: "مشاور",
     accessor: (row: any) => (
       <div className="relative inline-block">{row.doctor?.name}</div>
     ),
-    cellClassName: (row: any) => "text-cyan-500",
+    cellClassName: () => "text-cyan-500",
   },
   { header: "تاریخ", accessor: (row: any) => dateConvert(row.date) },
   { header: "زمان", accessor: (row: any) => row.time },

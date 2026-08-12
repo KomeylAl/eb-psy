@@ -1,0 +1,31 @@
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import fa from "react-date-object/locales/persian_fa";
+import DateObject from "react-date-object";
+
+interface CustomDatePickerProps {
+  value?: string;
+  onChange?: (date: DateObject | null) => void;
+  disabled?: boolean;
+}
+
+const CustomDatePicker = ({
+  value,
+  onChange,
+  disabled = false,
+}: CustomDatePickerProps) => {
+  return (
+    <DatePicker
+      calendar={persian}
+      locale={fa}
+      format="YYYY/MM/DD"
+      value={value || undefined}
+      onChange={onChange}
+      disabled={disabled}
+      containerClassName="w-full"
+      inputClass="w-full bg-white h-9 px-3 py-1 text-base shadow-xs rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 disabled:opacity-60"
+    />
+  );
+};
+
+export default CustomDatePicker;
