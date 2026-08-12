@@ -219,6 +219,33 @@ export const assessmentsColumns = [
   },
 ];
 
+export const commentsColumns = [
+  {
+    header: "نویسنده",
+    accessor: (row: any) =>
+      row.author_name ||
+      `${row.first_name ?? ""} ${row.last_name ?? ""}`.trim() ||
+      "—",
+  },
+  {
+    header: "متن نظر",
+    accessor: (row: any) => {
+      const body = row.body || "";
+      return body.length > 80 ? `${body.slice(0, 80)}...` : body;
+    },
+  },
+  {
+    header: "امتیاز",
+    accessor: (row: any) => `${row.rating ?? "—"} / 5`,
+    cellClassName: () => "text-amber-500",
+  },
+  {
+    header: "تاریخ",
+    accessor: (row: any) =>
+      row.created_at ? dateConvert(row.created_at) : "—",
+  },
+];
+
 export const workshopColumns = [
   { header: "عنوان", accessor: "title" },
   { header: "روز های برگزاری", accessor: "week_day" },

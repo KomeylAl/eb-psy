@@ -6,6 +6,7 @@ import {
   CalendarFold,
   FileUser,
   LayoutDashboard,
+  MessageSquareText,
   Settings,
   SwatchBook,
 } from "lucide-react";
@@ -39,6 +40,11 @@ const Navbar = () => {
       title: "ارزیابی ها",
       link: "/assessments",
       icon: <CalendarFold />,
+    },
+    {
+      title: "نظرات",
+      link: "/comments",
+      icon: <MessageSquareText />,
     },
     {
       title: "اعلانات",

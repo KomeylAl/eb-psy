@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactCompiler: true,
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "api.ebrazclinic.ir" }],
+    remotePatterns: [{ protocol: "https", hostname: "api.ebrazclinic.ir" }, { protocol: "http", hostname: "localhost" }],
   },
 };
 

@@ -18,9 +18,10 @@ http://localhost:8000/api/v1
 
 | راهنما | مخاطب | توضیح |
 |--------|--------|--------|
-| [APIهای عمومی و مشترک](./public/README.md) | سایت عمومی، همه کاربران | ورود، محتوای عمومی، ثبت ارزیابی و کامنت، اعلان‌های مشترک |
-| [پنل پزشک / تراپیست](./doctor/README.md) | پزشک (`type: doctor`) | نوبت‌ها، رزومه، منابع، ارزیابی‌ها |
-| [پنل ادمین](./admin/README.md) | ادمین (`type: admin`) | مدیریت کاربران، نوبت‌ها، کارگاه‌ها، مالی، پشتیبان‌گیری و ... |
+| [APIهای عمومی و مشترک](./public/README.md) | سایت عمومی، همه کاربران | ورود، محتوای عمومی، ثبت ارزیابی و نظر/امتیاز، اعلان‌های مشترک |
+| [پنل پزشک / تراپیست](./doctor/README.md) | پزشک (`type: doctor`) | نوبت‌ها، رزومه، منابع، ارزیابی‌ها، نظرات تأییدشده |
+| [پنل ادمین](./admin/README.md) | ادمین (`type: admin`) | مدیریت کاربران، نوبت‌ها، کارگاه‌ها، مالی، تأیید نظرات، پشتیبان‌گیری و ... |
+| [پنل حسابداری](./accounting/README.md) | حسابدار / ادمین مالی | وضعیت API مالی، مدل واقعی پرداخت، محدودیت‌ها و roadmap ایمن |
 
 ---
 
@@ -48,7 +49,7 @@ http://localhost:8000/api/v1
 
 ## احراز هویت (Sanctum)
 
-### ورود با رمز
+### ورود
 
 ```http
 POST /api/v1/auth/login
@@ -65,30 +66,6 @@ Accept: application/json
 ```
 
 فیلد `type` اختیاری است؛ در صورت ارسال، کاربر با همان نقش جستجو می‌شود.
-
-### ورود با OTP
-
-ورود بدون رمز فقط برای `admin` و `doctor` فعال است:
-
-```http
-POST /api/v1/auth/otp/request
-POST /api/v1/auth/otp/verify
-```
-
-درخواست کد شامل `phone` و `type` است و تأیید کد علاوه بر آن‌ها فیلد `code`
-را دریافت می‌کند. پاسخ verify مانند login شامل `token` و `user` است. کد ۵
-دقیقه اعتبار دارد و فاصله ارسال مجدد ۶۰ ثانیه است.
-
-### تغییر رمز با OTP
-
-```http
-POST /api/v1/auth/password/otp
-POST /api/v1/auth/password
-Authorization: Bearer {token}
-```
-
-این قابلیت نیز فقط برای `admin` و `doctor` است. جزئیات درخواست‌ها در
-[راهنمای عمومی](./public/README.md#احراز-هویت) آمده است.
 
 ### استفاده از توکن
 
@@ -224,20 +201,18 @@ GET /api/v1/doctors/{doctor}
 
 ### عمومی (بدون توکن)
 
-`about`, `departments`, `doctors`, `categories`, `tags`, `posts`, `workshops`, `POST assessments`, `POST comments`, `POST auth/login`, `POST auth/otp/request`, `POST auth/otp/verify`
+`about`, `departments`, `doctors`, `categories`, `tags`, `posts`, `workshops`, `POST assessments`, `GET/POST comments`, `POST auth/login`
 
 ### مشترک (با توکن — همه نقش‌ها)
 
-`auth/me`, `auth/logout`, `notifications`, `notifications/unread`, `notifications/{id}/read`
-
-### مشترک ادمین و پزشک (با توکن)
-
-`auth/password/otp`, `auth/password`
+`auth/me`, `auth/logout`, `notifications`, `notifications/unread`, `notifications/{id}/read`, `comments/mine`
 
 ### پزشک (`type: doctor`)
 
-`doctor/appointments`, `doctor/resume`, `doctor/resources`, `doctor/assessments`, `doctor/notifications`
+`doctor/appointments`, `doctor/resume`, `doctor/resources`, `doctor/assessments`, `doctor/notifications`, `doctor/comments`
 
 ### ادمین (`type: admin`)
 
 تمام endpointهای مدیریتی — جزئیات در [راهنمای ادمین](./admin/README.md).
+
+برای پیاده‌سازی سایدبار حسابداری (داشبورد، پرداخت‌ها، درآمد نوبت، فاکتور، گزارش): [راهنمای حسابداری](./accounting/README.md).

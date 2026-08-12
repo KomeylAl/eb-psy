@@ -4,6 +4,7 @@ import {
   CalendarCheck,
   CalendarFold,
   FileUser,
+  MessageSquareText,
   Settings,
   SwatchBook,
 } from "lucide-react";
@@ -20,6 +21,12 @@ const links = [
     href: "/assessments",
     description: "پیگیری ارزیابی‌های اولیه",
     icon: CalendarFold,
+  },
+  {
+    title: "نظرات",
+    href: "/comments",
+    description: "مشاهده نظرات تأییدشده مراجعین",
+    icon: MessageSquareText,
   },
   {
     title: "رزومه",
