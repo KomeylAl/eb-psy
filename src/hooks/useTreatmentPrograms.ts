@@ -1,16 +1,60 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-export function useDoctorTreatmentPrograms(page = 1) {
+export type DoctorProgramFilters = {
+  page?: number;
+  pageSize?: number;
+  search?: string;
+  status?: string;
+  clientId?: string;
+};
+
+export function useDoctorTreatmentPrograms(filters: DoctorProgramFilters | number = 1) {
+  const isLegacy = typeof filters === "number";
+  const page = isLegacy ? filters : (filters.page ?? 1);
+  const pageSize = isLegacy ? 20 : (filters.pageSize ?? 10);
+  const search = isLegacy ? "" : (filters.search ?? "");
+  const status = isLegacy ? "" : (filters.status ?? "");
+  const clientId = isLegacy ? "" : (filters.clientId ?? "");
+
   return useQuery({
-    queryKey: ["doctor-treatment-programs", page],
+    queryKey: [
+      "doctor-treatment-programs",
+      page,
+      pageSize,
+      search,
+      status,
+      clientId,
+    ],
     queryFn: async () => {
-      const res = await fetch(
-        `/api/treatment-programs?page=${page}&per_page=20`
-      );
+      const params = new URLSearchParams({
+        page: String(page),
+        per_page: String(pageSize),
+      });
+      if (search) params.set("search", search);
+      if (status) params.set("status", status);
+      if (clientId) params.set("client_id", clientId);
+      const res = await fetch(`/api/treatment-programs?${params}`);
       const payload = await res.json().catch(() => null);
       if (!res.ok) {
         toast.error(payload?.message || "خطا در دریافت برنامه‌ها");
+        throw new Error(payload?.message || "خطا");
+      }
+      return payload;
+    },
+    placeholderData: (prev) => prev,
+  });
+}
+
+export function useDoctorTreatmentProgram(programId: string) {
+  return useQuery({
+    queryKey: ["doctor-treatment-program", programId],
+    enabled: Boolean(programId),
+    queryFn: async () => {
+      const res = await fetch(`/api/treatment-programs/${programId}`);
+      const payload = await res.json().catch(() => null);
+      if (!res.ok) {
+        toast.error(payload?.message || "خطا در دریافت برنامه");
         throw new Error(payload?.message || "خطا");
       }
       return payload;

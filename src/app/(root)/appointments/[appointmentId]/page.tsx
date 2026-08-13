@@ -66,7 +66,7 @@ const AppointmentSessionPage = ({ params }: PageProps) => {
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={() => {}} isShowSearch={false} />
-      <div className="p-6 md:p-12 space-y-6">
+      <div className="p-4 sm:p-6 md:p-8 space-y-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-bold text-2xl">جزئیات جلسه</h2>
           <TransitionLink href="/appointments" className="text-blue-600 text-sm">

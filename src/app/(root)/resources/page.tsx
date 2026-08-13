@@ -61,7 +61,7 @@ const Resources = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={onSearchChange} isShowSearch />
-      <div className="w-full flex flex-col p-12">
+      <div className="w-full flex flex-col p-4 sm:p-6 md:p-8">
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 lg:items-center lg:justify-between">
           <div className="w-full flex items-center justify-between">
             <h2 className="text-xl font-bold">منابع درمانی پیشنهادی</h2>

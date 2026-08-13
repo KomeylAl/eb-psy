@@ -106,7 +106,7 @@ const Settings = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={() => {}} isShowSearch={false} />
-      <div className="w-full flex flex-col gap-6 p-6 md:p-12">
+      <div className="w-full flex flex-col gap-6 p-4 sm:p-6 md:p-8">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-bold text-2xl">تنظیمات</h2>
           <Button variant="outline" onClick={() => refetch()}>

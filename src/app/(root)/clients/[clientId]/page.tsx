@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import Header from "@/components/layout/Header";
 import { useDoctorTreatmentPrograms } from "@/hooks/useTreatmentPrograms";
 import { PuffLoader } from "react-spinners";
@@ -16,23 +16,20 @@ interface PageProps {
 
 /** Legacy route: medical records are program-scoped; list this client's programs. */
 const ClientProgramsRedirectPage = ({ params }: PageProps) => {
-  const { clientId } = React.use<Params>(params);
-  const { data, isLoading, error, refetch } = useDoctorTreatmentPrograms(1);
+  const { clientId } = React.use(params);
+  const { data, isLoading, error, refetch } = useDoctorTreatmentPrograms({
+    page: 1,
+    pageSize: 50,
+    clientId,
+  });
 
-  const programs = useMemo(
-    () =>
-      (data?.data ?? []).filter(
-        (p: any) => String(p.client_id ?? p.client?.id) === String(clientId)
-      ),
-    [clientId, data]
-  );
-
+  const programs = data?.data ?? [];
   const clientName = programs[0]?.client?.name;
 
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={() => {}} isShowSearch={false} />
-      <div className="p-6 md:p-12 space-y-6">
+      <div className="p-4 sm:p-6 md:p-8 space-y-6">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="font-bold text-2xl">
@@ -42,7 +39,10 @@ const ClientProgramsRedirectPage = ({ params }: PageProps) => {
               پرونده پزشکی از طریق برنامه درمان باز می‌شود.
             </p>
           </div>
-          <TransitionLink href="/treatment-programs" className="text-blue-600 text-sm">
+          <TransitionLink
+            href="/treatment-programs"
+            className="text-blue-600 text-sm"
+          >
             همه برنامه‌ها
           </TransitionLink>
         </div>
@@ -77,7 +77,8 @@ const ClientProgramsRedirectPage = ({ params }: PageProps) => {
             >
               <p className="font-medium">{program.title || "برنامه درمان"}</p>
               <p className="text-xs text-muted-foreground mt-1">
-                وضعیت: {program.status}
+                وضعیت: {program.status} · جلسات:{" "}
+                {program.appointments_count ?? 0}
               </p>
             </TransitionLink>
           ))}

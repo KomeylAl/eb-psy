@@ -31,7 +31,7 @@ export default function Home() {
     <div className="flex-1 h-screen overflow-y-auto flex flex-col">
       <Header isShowSearch={false} searchFn={() => {}} />
 
-      <div className="flex-1 p-6 md:p-8 flex flex-col gap-8">
+      <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col gap-8">
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="font-bold text-2xl">داشبورد روان‌درمانگر</h2>

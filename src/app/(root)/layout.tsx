@@ -5,7 +5,7 @@ import { UserProvider } from "@/contexts/UserContext";
 import { Toaster } from "react-hot-toast";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import Sidebar from "@/components/layout/Sidebar";
+import DashboardShell from "@/components/layout/DashboardShell";
 
 export const metadata: Metadata = {
   title: "پنل روان‌درمانگر - ابراز",
@@ -19,13 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="flex-1 lg:mr-80 overflow-y-auto h-screen bg-gray-100 dark:bg-gray-900">
+      <body className="bg-gray-100 dark:bg-gray-900">
         <Toaster />
         <Providers>
           <UserProvider>
             <ThemeProvider>
-              <Sidebar />
-              <SidebarProvider>{children}</SidebarProvider>
+              <SidebarProvider>
+                <DashboardShell>{children}</DashboardShell>
+              </SidebarProvider>
             </ThemeProvider>
           </UserProvider>
         </Providers>

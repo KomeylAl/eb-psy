@@ -84,13 +84,13 @@ function Table<T>({
             {columns.map((col, i) => (
               <th
                 key={i}
-                className="px-6 py-6 text-sm font-medium text-gray-700 dark:text-white text-right"
+                className="px-3 sm:px-6 py-4 sm:py-6 text-sm font-medium text-gray-700 dark:text-white text-right whitespace-nowrap"
               >
                 {col.header}
               </th>
             ))}
             {showActions && (
-              <th className="px-6 py-3 text-sm font-medium text-gray-700 dark:text-white text-right">
+              <th className="px-3 sm:px-6 py-3 text-sm font-medium text-gray-700 dark:text-white text-right">
                 اقدامات
               </th>
             )}
@@ -105,7 +105,7 @@ function Table<T>({
               {columns.map((col, colIndex) => (
                 <td
                   key={colIndex}
-                  className={`px-6 py-4 text-sm text-right ${
+                  className={`px-3 sm:px-6 py-3 sm:py-4 text-sm text-right ${
                     col.cellClassName
                       ? col.cellClassName(row)
                       : "text-gray-800 dark:text-shelfish"
@@ -117,7 +117,7 @@ function Table<T>({
                 </td>
               ))}
               {showActions && (
-                <td className="px-6 py-4 text-sm text-gray-800 space-x-2">
+                <td className="px-3 sm:px-6 py-4 text-sm text-gray-800 space-x-2">
                   <Button variant="ghost" size="sm" onClick={() => onEdit(row)}>
                     <Pencil className="w-4 h-4 text-blue-500" />
                   </Button>

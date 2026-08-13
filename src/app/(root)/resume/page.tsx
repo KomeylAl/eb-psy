@@ -86,7 +86,7 @@ const DoctorResume = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={() => {}} isShowSearch={false} />
-      <div className="w-full flex flex-col p-6">
+      <div className="w-full flex flex-col p-4 sm:p-6 md:p-8">
         <div className="w-full">
           {isLoading && (
             <div className="w-full h-full flex items-center justify-center">
